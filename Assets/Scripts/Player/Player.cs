@@ -6,6 +6,8 @@ public class Player : MonoBehaviour
 {
 
     private PlayerMovementController _movementController;
+    private TimeShiftController _timeShiftController;
+    
     public Transform cam;
     public float turnSmoothTime = 0.1f;
     float turnSmoothVelocity;
@@ -16,6 +18,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         _movementController = GetComponent<PlayerMovementController>();
+        _timeShiftController = GetComponent<TimeShiftController>();
     }
 
     // Update is called once per frame
@@ -24,6 +27,12 @@ public class Player : MonoBehaviour
         // Get Movement Keys
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
+
+
+        //Time Shift
+        if(Input.GetButtonDown("TimeShift")){
+            _timeShiftController.TimeShift();
+        }
 
         //Jump
         if(Input.GetButtonDown("Jump")){
