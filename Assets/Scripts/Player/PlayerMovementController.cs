@@ -7,7 +7,8 @@ public class PlayerMovement : MonoBehaviour, IMoveable
     public float Speed => _speed;
     private float _speed = 10;
     
-    public void (Vector3 direction){
+    
+    public void Move(Vector3 direction){
         
     }
 
