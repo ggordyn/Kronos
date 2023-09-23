@@ -15,15 +15,17 @@ public class PlayerMovementController : MonoBehaviour, IMoveable
     public LayerMask groundMask;
     bool isGrounded;
     public float jumpHeight = 3f;
-
+    Animator animator;
 
     
     public void Start(){
         characterController = GetComponent<CharacterController>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     public void Update(){
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        animator.SetBool("isGrounded", isGrounded);
         if(isGrounded && velocity.y < 0){
             velocity.y = -2f;
         }
@@ -42,10 +44,8 @@ public class PlayerMovementController : MonoBehaviour, IMoveable
     }
 
     public void Fall(){
-        
         velocity.y += gravity * Time.deltaTime;
         characterController.Move(velocity * Time.deltaTime);
-        
     }
 
 }

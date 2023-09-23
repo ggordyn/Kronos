@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     public Transform cam;
     public float turnSmoothTime = 0.1f;
     float turnSmoothVelocity;
-
+    Animator _animator;
     
 
     // Start is called before the first frame update
@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
     {
         _movementController = GetComponent<PlayerMovementController>();
         _timeShiftController = GetComponent<TimeShiftController>();
+        _animator = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
@@ -41,6 +42,7 @@ public class Player : MonoBehaviour
 
         // Move
         Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
+        _animator.SetFloat("speed", direction.magnitude);
         if(direction.magnitude >= 0.1f){
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
