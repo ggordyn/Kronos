@@ -11,7 +11,7 @@ public class PlayerMovementController : MonoBehaviour, IMoveable
     private CharacterController characterController;
 
     public Transform groundCheck;
-    public float groundDistance = 0.1f;
+    public float groundDistance = 1f;
     public LayerMask groundMask;
     bool isGrounded;
     public float jumpHeight = 3f;
