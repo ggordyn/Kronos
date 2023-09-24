@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 
 public class TimeShiftController : MonoBehaviour
 {
@@ -9,12 +10,18 @@ public class TimeShiftController : MonoBehaviour
     public float timeShiftCooldown = 20f;
     private float timeShiftCooldownTimer = 0f;
     public ParticleSystem timeParticles;
-    public GameObject[] presentObjects;
-    public GameObject[] pastObjects;
+    private GameObject[] presentObjects;
+    private GameObject[] pastObjects;
+
+    private ChromaticAberration chromaticAberration;
+    private Grain grain;
 
     // Start is called before the first frame update
     void Start()
     {
+        
+        Camera.main.GetComponent<PostProcessVolume>().sharedProfile.TryGetSettings<ChromaticAberration>(out chromaticAberration);
+        Camera.main.GetComponent<PostProcessVolume>().sharedProfile.TryGetSettings<Grain>(out grain);
         timeParticles = GetComponent<ParticleSystem>();
         presentObjects = GameObject.FindGameObjectsWithTag("Present");
         pastObjects = GameObject.FindGameObjectsWithTag("Past");
@@ -32,12 +39,14 @@ public class TimeShiftController : MonoBehaviour
                 timeShiftTimer += Time.deltaTime;
             }else{
                 timeShiftTimer = 0f;
+                chromaticAberration.active = false;
+                grain.active = false;
                 foreach(GameObject o in presentObjects){
                 o.SetActive(true);
-            }
-            foreach(GameObject o in pastObjects){
-                o.SetActive(false);
-            }
+                }
+                foreach(GameObject o in pastObjects){
+                    o.SetActive(false);
+                }
                 timeShiftCooldownTimer += Time.deltaTime;
             }
         }
@@ -55,6 +64,8 @@ public class TimeShiftController : MonoBehaviour
         if(timeShiftCooldownTimer == 0f && timeShiftTimer == 0f){
             timeParticles.Play();
             
+            chromaticAberration.active = true;
+            grain.active = true;
             foreach(GameObject o in presentObjects){
                 o.SetActive(false);
             }
