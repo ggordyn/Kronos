@@ -18,6 +18,9 @@ public class TimeShiftController : MonoBehaviour
         timeParticles = GetComponent<ParticleSystem>();
         presentObjects = GameObject.FindGameObjectsWithTag("Present");
         pastObjects = GameObject.FindGameObjectsWithTag("Past");
+        foreach(GameObject o in pastObjects){
+                o.SetActive(false);
+            }
     }
 
     // Update is called once per frame
