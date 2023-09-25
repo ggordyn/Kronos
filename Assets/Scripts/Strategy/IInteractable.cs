@@ -4,9 +4,5 @@ using UnityEngine;
 
 public interface IInteractable
 {
-    public interface IMoveable
-{
-  
     void Interact();
-}
 }

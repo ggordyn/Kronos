@@ -40,10 +40,12 @@ public class TimeShiftController : MonoBehaviour
                 chromaticAberration.active = false;
                 grain.active = false;
                 foreach(GameObject o in presentObjects){
-                o.SetActive(true);
+                    if(o != null)
+                        o.SetActive(true);
                 }
                 foreach(GameObject o in pastObjects){
-                    o.SetActive(false);
+                    if(o != null)
+                        o.SetActive(false);
                 }
                 timeShiftCooldownTimer += Time.deltaTime;
             }
@@ -64,10 +66,12 @@ public class TimeShiftController : MonoBehaviour
             chromaticAberration.active = true;
             grain.active = true;
             foreach(GameObject o in presentObjects){
-                o.SetActive(false);
+                if(o != null)
+                    o.SetActive(false);
             }
             foreach(GameObject o in pastObjects){
-                o.SetActive(true);
+                if(o != null)
+                    o.SetActive(true);
             }
             timeShiftTimer = Time.deltaTime;
         }

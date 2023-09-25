@@ -11,6 +11,9 @@ public class Player : MonoBehaviour
     public Transform cam;
     public float turnSmoothTime = 0.1f;
     float turnSmoothVelocity;
+    public float interactDistance;
+    private CharacterController _characterController;
+    public LayerMask interactMask;
     Animator _animator;
     
 
@@ -18,6 +21,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         _movementController = GetComponent<PlayerMovementController>();
+        _characterController = GetComponent<CharacterController>();
         _timeShiftController = GetComponent<TimeShiftController>();
         _animator = GetComponentInChildren<Animator>();
     }
@@ -54,4 +58,6 @@ public class Player : MonoBehaviour
         //Gravity
         _movementController.Fall();
     }
+
+
 }
