@@ -9,7 +9,6 @@ public class TimeShiftController : MonoBehaviour
     private float timeShiftTimer = 0f;
     public float timeShiftCooldown = 20f;
     private float timeShiftCooldownTimer = 0f;
-    public ParticleSystem timeParticles;
     private GameObject[] presentObjects;
     private GameObject[] pastObjects;
 
@@ -22,7 +21,6 @@ public class TimeShiftController : MonoBehaviour
         
         Camera.main.GetComponent<PostProcessVolume>().sharedProfile.TryGetSettings<ChromaticAberration>(out chromaticAberration);
         Camera.main.GetComponent<PostProcessVolume>().sharedProfile.TryGetSettings<Grain>(out grain);
-        timeParticles = GetComponent<ParticleSystem>();
         presentObjects = GameObject.FindGameObjectsWithTag("Present");
         pastObjects = GameObject.FindGameObjectsWithTag("Past");
         foreach(GameObject o in pastObjects){
@@ -62,7 +60,6 @@ public class TimeShiftController : MonoBehaviour
 
     public void TimeShift(){
         if(timeShiftCooldownTimer == 0f && timeShiftTimer == 0f){
-            timeParticles.Play();
             
             chromaticAberration.active = true;
             grain.active = true;
