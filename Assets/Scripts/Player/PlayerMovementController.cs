@@ -7,26 +7,32 @@ public class PlayerMovementController : MonoBehaviour, IMoveable
     public float Speed => _speed;
     private float _speed = 6f;
     private float gravity = -3*9.8f;
-    Vector3 velocity;
+    public Vector3 velocity;
     private CharacterController characterController;
 
     public Transform groundCheck;
     public float groundDistance = 1f;
+    public GameManager gameManager;
     public LayerMask groundMask;
     bool isGrounded;
     public float jumpHeight = 3f;
+
     Animator animator;
 
     
     public void Start(){
         characterController = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
+        gameManager = FindAnyObjectByType<GameManager>();
     }
 
     public void Update(){
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
         animator.SetBool("isGrounded", isGrounded);
         if(isGrounded && velocity.y < 0){
+            if(velocity.y < gameManager.fallVelocityLimit){
+                gameManager.PlayerHurt();
+            }
             velocity.y = -2f;
         }
     }
@@ -35,6 +41,10 @@ public class PlayerMovementController : MonoBehaviour, IMoveable
     {
         characterController.Move(direction * Time.deltaTime * Speed);
 
+    }
+
+    public void Push(float pushSpeed, Vector3 direction){
+        characterController.Move(direction * pushSpeed);
     }
 
     public void Jump(){

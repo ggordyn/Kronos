@@ -6,6 +6,14 @@ public class EntranceDoor : MonoBehaviour, IInteractable
 {
     private Player player;
     private bool hasKey = false;
+    public GameObject openDoor;
+    public GameObject Room;
+    public TimeShiftController timeShiftController;
+
+    void Start(){
+        Unlock();
+    }
+
     void Update(){
         if(player != null && Input.GetButtonDown("Interact")){
            ((IInteractable)this).Interact();
@@ -35,7 +43,10 @@ public class EntranceDoor : MonoBehaviour, IInteractable
     {
         if(player != null){
             if(hasKey){
-                Debug.Log("Pase");
+                openDoor.SetActive(true);
+                Room.SetActive(true);
+                timeShiftController.UpdateObjects();
+                Destroy(this.gameObject);
             }else{
                 Debug.Log("Falta llave");
             }

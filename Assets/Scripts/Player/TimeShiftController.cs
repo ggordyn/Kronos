@@ -28,6 +28,14 @@ public class TimeShiftController : MonoBehaviour
             }
     }
 
+    public void UpdateObjects(){
+        presentObjects = GameObject.FindGameObjectsWithTag("Present");
+        pastObjects = GameObject.FindGameObjectsWithTag("Past");
+        foreach(GameObject o in pastObjects){
+                o.SetActive(false);
+            }
+    }
+
     // Update is called once per frame
     void Update()
     {
