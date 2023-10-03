@@ -6,7 +6,8 @@ public class Start: MonoBehaviour
 {
 
 	public void StartOption(String name){
-		SceneManager.LoadScene(name);
+		
+		FindObjectOfType<GameManager>().LoadScene(name);
 	}
 }
 
