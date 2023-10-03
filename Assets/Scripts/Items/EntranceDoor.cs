@@ -11,7 +11,7 @@ public class EntranceDoor : MonoBehaviour, IInteractable
     public TimeShiftController timeShiftController;
 
     void Start(){
-        Unlock();
+        //Unlock();
     }
 
     void Update(){
