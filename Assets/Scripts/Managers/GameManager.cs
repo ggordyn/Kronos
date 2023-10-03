@@ -12,10 +12,13 @@ public class GameManager : MonoBehaviour
     private float hurtTimer = 0f;
     public float fallVelocityLimit = -13.5f;
     public PlayerFlashRed playerFlashRed;
+    private AudioManager audioManager;
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
         lives = initialLives;
+        audioManager = FindObjectOfType<AudioManager>();
+        audioManager.Play("Menu");
     }
 
     
@@ -47,5 +50,15 @@ public class GameManager : MonoBehaviour
 
     public void LoadScene(string sceneName){
         SceneManager.LoadScene(sceneName);
+        switch(sceneName){
+            case "Menu":
+                audioManager.StopAll();
+                audioManager.Play("Menu");
+                break;
+            case "Level1":
+                audioManager.StopAll();
+                audioManager.Play("Theme");
+                break;
+        }
     }
 }
