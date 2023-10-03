@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657838, g: 0.49641228, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -413,13 +413,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 428518541}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.020582749, y: 0.92472947, z: 0.15572193, w: -0.34670228}
-  m_LocalPosition: {x: 492.50748, y: -251.74826, z: -278}
+  m_LocalRotation: {x: -0.11370384, y: 0.9139036, z: -0.210129, w: -0.32817307}
+  m_LocalPosition: {x: 387, y: 213, z: 69}
   m_LocalScale: {x: 3.9099793, y: 3.9097266, z: 3.913396}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1071380880}
-  m_LocalEulerAnglesHint: {x: 197.594, y: -318.24402, z: 175.794}
+  m_LocalEulerAnglesHint: {x: 152.696, y: -321.591, z: 175.487}
 --- !u!199 &428518543
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -441,7 +441,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: d5000d74cba194984b8bc6f7f898ad9e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -483,7 +483,7 @@ ParticleSystemRenderer:
   m_FreeformStretching: 0
   m_RotateWithStretchDirection: 1
   m_VertexStreams: 00010304
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
