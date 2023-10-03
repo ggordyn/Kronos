@@ -5,8 +5,7 @@ using UnityEngine.SceneManagement;
 public class Start: MonoBehaviour
 {
 
-	public void StartOption(String name){
-		
+	public void StartOption(string name){
 		FindObjectOfType<GameManager>().LoadScene(name);
 	}
 }

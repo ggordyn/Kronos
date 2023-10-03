@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657838, g: 0.49641228, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -890,6 +890,42 @@ MonoBehaviour:
     volume: 0.1
     pitch: 1
     loop: 1
+    source: {fileID: 0}
+  - name: Footstep
+    audioClip: {fileID: 8300000, guid: b041d6eb8dc16e2458b9789c26cf8f35, type: 3}
+    volume: 0.05
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Hurt
+    audioClip: {fileID: 8300000, guid: 1b5d55d2dace1104ead8b2ab1bb2ea59, type: 3}
+    volume: 0.25
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Clock
+    audioClip: {fileID: 8300000, guid: 5d7247a590cbdda43880daceda6e77ee, type: 3}
+    volume: 0.06
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Door
+    audioClip: {fileID: 8300000, guid: 306cd2637cae3594c923551d9ccac677, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Grab
+    audioClip: {fileID: 8300000, guid: 84a9e4ce444e890498a0ad39d7f983ec, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Door_Close
+    audioClip: {fileID: 8300000, guid: 5112f5b8d85a5ed4d948e2ac175d48d4, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
     source: {fileID: 0}
 --- !u!4 &1058543805
 Transform:

@@ -14,7 +14,7 @@ public class PlayerMovementController : MonoBehaviour, IMoveable
     public float groundDistance = 1f;
     public GameManager gameManager;
     public LayerMask groundMask;
-    bool isGrounded;
+    public bool isGrounded;
     public float jumpHeight = 3f;
 
     Animator animator;

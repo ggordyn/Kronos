@@ -1,13 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class EntranceKey : MonoBehaviour, IInteractable
 {
-
+    public GameObject keySprite;
     private Player player;
+    private AudioManager audioManager;
     public EntranceDoor entranceDoor;
+    void Start(){
+        audioManager = FindObjectOfType<AudioManager>();
+    }
+
     void Update(){
         if(player != null && Input.GetButtonDown("Interact")){
            ((IInteractable)this).Interact();
@@ -31,7 +34,9 @@ public class EntranceKey : MonoBehaviour, IInteractable
     void IInteractable.Interact()
     {
         if(player != null){
+            audioManager.Play("Grab");
             entranceDoor.Unlock();
+            keySprite.SetActive(true);
             Destroy(gameObject);
         } 
     }

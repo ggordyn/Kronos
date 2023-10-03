@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EntranceDoor : MonoBehaviour, IInteractable
 {
@@ -9,9 +8,10 @@ public class EntranceDoor : MonoBehaviour, IInteractable
     public GameObject openDoor;
     public GameObject Room;
     public TimeShiftController timeShiftController;
-
+    public GameObject keySprite;
+    private AudioManager audioManager;
     void Start(){
-        //Unlock();
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     void Update(){
@@ -46,6 +46,8 @@ public class EntranceDoor : MonoBehaviour, IInteractable
                 openDoor.SetActive(true);
                 Room.SetActive(true);
                 timeShiftController.UpdateObjects();
+                keySprite.SetActive(false);
+                audioManager.Play("Door");
                 Destroy(this.gameObject);
             }else{
                 Debug.Log("Falta llave");

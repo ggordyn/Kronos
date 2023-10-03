@@ -7,12 +7,15 @@ public class Player : MonoBehaviour
 
     private PlayerMovementController _movementController;
     private TimeShiftController _timeShiftController;
+    private AudioManager audioManager;
     
     public Transform cam;
     public float turnSmoothTime = 0.1f;
     float turnSmoothVelocity;
     public float interactDistance;
     public LayerMask interactMask;
+    private bool footstepsPlaying = false;
+
     Animator _animator;
     
 
@@ -22,6 +25,7 @@ public class Player : MonoBehaviour
         _movementController = GetComponent<PlayerMovementController>();
         _timeShiftController = GetComponent<TimeShiftController>();
         _animator = GetComponentInChildren<Animator>();
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     // Update is called once per frame
@@ -51,11 +55,20 @@ public class Player : MonoBehaviour
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward; 
             _movementController.Move(moveDir.normalized);
+            
+            if(!footstepsPlaying && _movementController.isGrounded)
+                StartCoroutine(FootstepsCoroutine(0.35f));
         }
 
         //Gravity
         _movementController.Fall();
     }
 
+    private IEnumerator FootstepsCoroutine(float duration){
+        footstepsPlaying = true;
+        audioManager.Play("Footstep");
+        yield return new WaitForSeconds(duration);
+        footstepsPlaying = false;
+    }
     
 }

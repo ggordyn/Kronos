@@ -12,6 +12,7 @@ public class TimeShiftController : MonoBehaviour
     private GameObject[] presentObjects;
     private GameObject[] pastObjects;
 
+    private AudioManager audioManager;
     private ChromaticAberration chromaticAberration;
     private Grain grain;
 
@@ -21,6 +22,7 @@ public class TimeShiftController : MonoBehaviour
         
         Camera.main.GetComponent<PostProcessVolume>().sharedProfile.TryGetSettings<ChromaticAberration>(out chromaticAberration);
         Camera.main.GetComponent<PostProcessVolume>().sharedProfile.TryGetSettings<Grain>(out grain);
+        audioManager = FindObjectOfType<AudioManager>();
         presentObjects = GameObject.FindGameObjectsWithTag("Present");
         pastObjects = GameObject.FindGameObjectsWithTag("Past");
         foreach(GameObject o in pastObjects){
@@ -45,6 +47,8 @@ public class TimeShiftController : MonoBehaviour
                 timeShiftTimer += Time.deltaTime;
             }else{
                 timeShiftTimer = 0f;
+                audioManager.ChangePitch("Theme", 1f);
+                audioManager.Stop("Clock");
                 chromaticAberration.active = false;
                 grain.active = false;
                 foreach(GameObject o in presentObjects){
@@ -73,6 +77,8 @@ public class TimeShiftController : MonoBehaviour
             
             chromaticAberration.active = true;
             grain.active = true;
+            audioManager.ChangePitch("Theme", -0.5f);
+            audioManager.Play("Clock");
             foreach(GameObject o in presentObjects){
                 if(o != null)
                     o.SetActive(false);
