@@ -16,4 +16,8 @@ public class Victory : MonoBehaviour
     {
         gameManager.LoadScene("Menu");
     }
+
+    public void Exit(){
+        Application.Quit();
+    }
 }

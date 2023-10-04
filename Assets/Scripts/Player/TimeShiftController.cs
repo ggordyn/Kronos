@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.UI;
 
 public class TimeShiftController : MonoBehaviour
 {
@@ -9,6 +10,9 @@ public class TimeShiftController : MonoBehaviour
     private float timeShiftTimer = 0f;
     public float timeShiftCooldown = 20f;
     private float timeShiftCooldownTimer = 0f;
+    public Slider timeShiftUI;
+    public Slider timeShiftCooldownUI;
+    public GameObject timeShiftCooldownObject;
     private GameObject[] presentObjects;
     private GameObject[] pastObjects;
 
@@ -41,7 +45,7 @@ public class TimeShiftController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        UpdateTimeShiftUI();
         if(timeShiftTimer > 0f){
             if(timeShiftTimer <= timeShiftLimit){
                 timeShiftTimer += Time.deltaTime;
@@ -64,9 +68,11 @@ public class TimeShiftController : MonoBehaviour
         }
 
         if(timeShiftCooldownTimer > 0f){
+            timeShiftCooldownObject.SetActive(true);
             if(timeShiftCooldownTimer <= timeShiftCooldown){
                 timeShiftCooldownTimer += Time.deltaTime;
             }else{
+                timeShiftCooldownObject.SetActive(false);
                 timeShiftCooldownTimer = 0f;
             }
         }
@@ -90,5 +96,17 @@ public class TimeShiftController : MonoBehaviour
             timeShiftTimer = Time.deltaTime;
         }
         
+    }
+
+    private void UpdateTimeShiftUI(){
+        if(timeShiftTimer > 0){
+            timeShiftUI.value = timeShiftLimit - timeShiftTimer;
+        }else{
+            if(timeShiftCooldownTimer > 0){
+                timeShiftCooldownUI.value = timeShiftCooldownTimer;
+            }else{
+                timeShiftUI.value = timeShiftLimit;
+            }
+        }
     }
 }

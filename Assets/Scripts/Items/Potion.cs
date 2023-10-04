@@ -8,18 +8,21 @@ public class Potion : MonoBehaviour, IInteractable
     private AudioManager audioManager;
     public GameObject exitStairs;
     public GameObject potionSprite;
+    private EnchantedPot enchantedPot;
     public void Interact()
     {
         if(player != null){
             audioManager.Play("Grab");
             potionSprite.SetActive(true);
             exitStairs.SetActive(true);
+            enchantedPot.hasPotion = true;
             Destroy(gameObject);
         } 
     }
 
     void Start(){
         audioManager = FindObjectOfType<AudioManager>();
+        enchantedPot = FindObjectOfType<EnchantedPot>();
     }
     void Update(){
         if(player != null && Input.GetButtonDown("Interact")){

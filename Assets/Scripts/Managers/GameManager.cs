@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
                 healthUI = FindObjectOfType<HealthUI>();
             healthUI.updateHearts(lives);
             if(lives == 0){
-                LoadScene("Menu");
+                LoadScene("GameOver");
                 lives = initialLives;
             }
         }
@@ -63,6 +63,7 @@ public class GameManager : MonoBehaviour
             case "Menu":
                 audioManager.StopAll();
                 audioManager.Play("Menu");
+                lives = initialLives;
                 break;
             case "Level1":
                 audioManager.StopAll();

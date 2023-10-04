@@ -9,6 +9,7 @@ public class EntranceDoor : MonoBehaviour, IInteractable
     public GameObject Room;
     public TimeShiftController timeShiftController;
     public GameObject keySprite;
+    public GameObject keyBubbleSprite;
     private AudioManager audioManager;
     void Start(){
         audioManager = FindObjectOfType<AudioManager>();
@@ -27,7 +28,7 @@ public class EntranceDoor : MonoBehaviour, IInteractable
     public void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Player"){
-
+            keyBubbleSprite.SetActive(true);
             player = other.gameObject.GetComponent<Player>();
         }
     }
@@ -36,6 +37,7 @@ public class EntranceDoor : MonoBehaviour, IInteractable
     {
         if(other.tag == "Player"){
             player = null;
+            keyBubbleSprite.SetActive(false);
         }
     }
 
@@ -43,14 +45,13 @@ public class EntranceDoor : MonoBehaviour, IInteractable
     {
         if(player != null){
             if(hasKey){
+                keyBubbleSprite.SetActive(false);
                 openDoor.SetActive(true);
                 Room.SetActive(true);
                 timeShiftController.UpdateObjects();
                 keySprite.SetActive(false);
                 audioManager.Play("Door");
-                Destroy(this.gameObject);
-            }else{
-                Debug.Log("Falta llave");
+                Destroy(gameObject);
             }
         } 
     }

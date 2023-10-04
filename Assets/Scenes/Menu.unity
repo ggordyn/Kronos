@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657838, g: 0.49641228, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -930,6 +930,12 @@ MonoBehaviour:
   - name: Victory
     audioClip: {fileID: 8300000, guid: 35fd3a4ed201543c49bf52d2438c32fd, type: 3}
     volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: GameOver
+    audioClip: {fileID: 8300000, guid: b317b3976d4116a48af13b9d837f1c53, type: 3}
+    volume: 0.306
     pitch: 1
     loop: 0
     source: {fileID: 0}
