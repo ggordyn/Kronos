@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ public class PlayerFlashRed : MonoBehaviour
     public Material normalMaterial; 
 
     private Coroutine flashCoroutine;
+    public Action<float> OnFlashRed;
 
     void Start(){
         playerRenderers = GetComponentsInChildren<Renderer>();

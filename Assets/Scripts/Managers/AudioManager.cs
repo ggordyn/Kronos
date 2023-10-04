@@ -4,6 +4,7 @@ using System;
 
 public class AudioManager : MonoBehaviour
 {
+    public Action<string> OnPlay;
     public Sound[] sounds;
     // Start is called before the first frame update
     void Awake()

@@ -4,14 +4,15 @@ using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+[RequireComponent(typeof(PlayerActor))]
 public class GameManager : MonoBehaviour
 {
 
-    public int initialLives = 3;
+    public int initialLives => GetComponent<PlayerActor>().Stats.InitialLives;
     public int lives;
-    public float hurtCooldown = 1f;
+    public float hurtCooldown => GetComponent<PlayerActor>().Stats.HurtCooldown;
     private float hurtTimer = 0f;
-    public float fallVelocityLimit = -13.5f;
+    public float fallVelocityLimit => GetComponent<PlayerActor>().Stats.FallVelocityLimit;
     public PlayerFlashRed playerFlashRed;
     private AudioManager audioManager;
     private HealthUI healthUI;
@@ -21,7 +22,9 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         lives = initialLives;
         audioManager = FindObjectOfType<AudioManager>();
-        audioManager.Play("Menu");
+        audioManager.OnPlay += OnPlay;
+        
+        audioManager.OnPlay?.Invoke("Menu");
     }
 
     
@@ -40,15 +43,21 @@ public class GameManager : MonoBehaviour
 
     public void PlayerHurt(){
         if(hurtTimer == 0f){
-            if(playerFlashRed == null)
+            if(playerFlashRed == null){
                 playerFlashRed = FindObjectOfType<PlayerFlashRed>();
+                playerFlashRed.OnFlashRed += FlashRed;
+            }
+            
             lives -= 1;
             hurtTimer += Time.deltaTime;
-            playerFlashRed.FlashRed(0.1f);
-            audioManager.Play("Hurt");
-            if(healthUI == null)
+            
+            playerFlashRed.OnFlashRed?.Invoke(0.1f);
+            audioManager.OnPlay?.Invoke("Hurt");
+            if(healthUI == null){
                 healthUI = FindObjectOfType<HealthUI>();
-            healthUI.updateHearts(lives);
+                healthUI.OnUpdateHearts += UpdateHearts;
+            }
+            healthUI.OnUpdateHearts?.Invoke(lives);
             if(lives == 0){
                 LoadScene("GameOver");
                 lives = initialLives;
@@ -58,25 +67,40 @@ public class GameManager : MonoBehaviour
 
     public void LoadScene(string sceneName){
         SceneManager.LoadScene(sceneName);
-        healthUI = FindObjectOfType<HealthUI>();
         switch(sceneName){
             case "Menu":
                 audioManager.StopAll();
-                audioManager.Play("Menu");
+                audioManager.OnPlay?.Invoke("Menu");
                 lives = initialLives;
                 break;
             case "Level1":
                 audioManager.StopAll();
-                audioManager.Play("Theme");
+                audioManager.OnPlay?.Invoke("Theme");
                 break;
             case "Victory":
                 audioManager.StopAll();
-                audioManager.Play("Victory");
+                audioManager.OnPlay?.Invoke("Victory");
                 break;
             case "GameOver":
                 audioManager.StopAll();
-                audioManager.Play("GameOver");
+                audioManager.OnPlay?.Invoke("GameOver");
                 break;
         }
+    }
+
+    private void UpdateHearts(int lives)
+    {
+        if (healthUI != null)
+        {
+            healthUI.updateHearts(lives);
+        }
+    }
+
+    private void FlashRed(float duration){
+        playerFlashRed.FlashRed(duration);
+    }
+
+    private void OnPlay(string name){
+        audioManager.Play(name);
     }
 }

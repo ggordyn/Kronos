@@ -4,11 +4,12 @@ using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(TimeShift))]
 public class TimeShiftController : MonoBehaviour
 {
-    public float timeShiftLimit;
+    public float timeShiftLimit => GetComponent<TimeShift>().Stats.TimeShiftLimit;
     private float timeShiftTimer = 0f;
-    public float timeShiftCooldown = 20f;
+    public float timeShiftCooldown => GetComponent<TimeShift>().Stats.TimeShiftCooldown;
     private float timeShiftCooldownTimer = 0f;
     public Slider timeShiftUI;
     public Slider timeShiftCooldownUI;

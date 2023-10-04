@@ -1361,6 +1361,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1932096197}
   - component: {fileID: 1932096196}
+  - component: {fileID: 1932096198}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1380,10 +1381,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3418ccb2b55780c4db756d8ee2cdaf7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialLives: 3
   lives: 3
-  hurtCooldown: 1
-  fallVelocityLimit: -19
   playerFlashRed: {fileID: 0}
 --- !u!4 &1932096197
 Transform:
@@ -1400,6 +1398,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1932096198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1932096195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4f9567dcf9acab4483ef097965e7fd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerStats: {fileID: 11400000, guid: 81e016ecae6f16e4699634d685590fc5, type: 2}
 --- !u!1 &1998869721
 GameObject:
   m_ObjectHideFlags: 0

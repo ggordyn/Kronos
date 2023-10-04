@@ -11,11 +11,12 @@ public class Player : MonoBehaviour
     
     public Transform cam;
     public float turnSmoothTime = 0.1f;
-    float turnSmoothVelocity;
+    public float turnSmoothVelocity;
     public float interactDistance;
     public LayerMask interactMask;
     private bool footstepsPlaying = false;
-
+    private CmdMovement cmdMovement;
+    private CmdJump cmdJump;
     Animator _animator;
     
 
@@ -25,6 +26,7 @@ public class Player : MonoBehaviour
         _movementController = GetComponent<PlayerMovementController>();
         _timeShiftController = GetComponent<TimeShiftController>();
         _animator = GetComponentInChildren<Animator>();
+        cmdJump = new CmdJump(_movementController);
         audioManager = FindObjectOfType<AudioManager>();
     }
 
@@ -43,18 +45,15 @@ public class Player : MonoBehaviour
 
         //Jump
         if(Input.GetButtonDown("Jump")){
-            _movementController.Jump();
+            cmdJump.Execute();
         }
 
         // Move
         Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
         _animator.SetFloat("speed", direction.magnitude);
         if(direction.magnitude >= 0.1f){
-            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
-            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
-            transform.rotation = Quaternion.Euler(0f, angle, 0f);
-            Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward; 
-            _movementController.Move(moveDir.normalized);
+            cmdMovement = new CmdMovement(direction, this, _movementController);
+            cmdMovement.Execute();
             
             if(!footstepsPlaying && _movementController.isGrounded)
                 StartCoroutine(FootstepsCoroutine(0.35f));
