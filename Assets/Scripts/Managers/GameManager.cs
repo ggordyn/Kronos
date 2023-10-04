@@ -68,6 +68,14 @@ public class GameManager : MonoBehaviour
                 audioManager.StopAll();
                 audioManager.Play("Theme");
                 break;
+            case "Victory":
+                audioManager.StopAll();
+                audioManager.Play("Victory");
+                break;
+            case "GameOver":
+                audioManager.StopAll();
+                audioManager.Play("GameOver");
+                break;
         }
     }
 }
