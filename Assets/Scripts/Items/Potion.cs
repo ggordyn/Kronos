@@ -7,10 +7,12 @@ public class Potion : MonoBehaviour, IInteractable
     private Player player;
     private AudioManager audioManager;
     public GameObject exitStairs;
+    public GameObject potionSprite;
     public void Interact()
     {
         if(player != null){
             audioManager.Play("Grab");
+            potionSprite.SetActive(true);
             exitStairs.SetActive(true);
             Destroy(gameObject);
         } 
