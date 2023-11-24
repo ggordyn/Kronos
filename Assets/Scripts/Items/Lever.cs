@@ -2,17 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnchantedPot : MonoBehaviour, IInteractable
-{
-    public bool hasPotion = false;
 
-    public GameObject potionSprite;
+public class Lever : MonoBehaviour, IInteractable
+{
     private Player player;
-    public GameObject potionBubble;
-    private GameManager gameManager;
+    public GameObject lever;
+    public GameObject leverDown;
+    private bool switched = false;
+    private AudioManager audioManager;
+    public FinalDoor door;
+    
 
     void Start(){
-        gameManager = FindObjectOfType<GameManager>();
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     void Update(){
@@ -20,10 +22,10 @@ public class EnchantedPot : MonoBehaviour, IInteractable
            ((IInteractable)this).Interact();
         }
     }
+
     public void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Player"){
-            potionBubble.SetActive(true);
             player = other.gameObject.GetComponent<Player>();
         }
     }
@@ -32,16 +34,18 @@ public class EnchantedPot : MonoBehaviour, IInteractable
     {
         if(other.tag == "Player"){
             player = null;
-            potionBubble.SetActive(false);
         }
     }
 
-    void IInteractable.Interact()
+    public void Interact()
     {
-        if(player != null && hasPotion){
-            potionBubble.SetActive(false);
-            potionSprite.SetActive(false);
-            gameManager.LoadScene("Level3");
+        if(player != null && !switched){
+            door.TryOpen();
+            audioManager.Play("Grab");
+            lever.SetActive(false);
+            leverDown.SetActive(true);
+            switched = true;
         } 
     }
+
 }
