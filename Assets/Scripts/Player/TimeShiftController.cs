@@ -20,6 +20,7 @@ public class TimeShiftController : MonoBehaviour
     private AudioManager audioManager;
     private ChromaticAberration chromaticAberration;
     private Grain grain;
+    private ColorGrading colorGrading;
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +28,7 @@ public class TimeShiftController : MonoBehaviour
         
         Camera.main.GetComponent<PostProcessVolume>().sharedProfile.TryGetSettings<ChromaticAberration>(out chromaticAberration);
         Camera.main.GetComponent<PostProcessVolume>().sharedProfile.TryGetSettings<Grain>(out grain);
+        Camera.main.GetComponent<PostProcessVolume>().sharedProfile.TryGetSettings<ColorGrading>(out colorGrading);
         audioManager = FindObjectOfType<AudioManager>();
         presentObjects = GameObject.FindGameObjectsWithTag("Present");
         pastObjects = GameObject.FindGameObjectsWithTag("Past");
@@ -56,6 +58,7 @@ public class TimeShiftController : MonoBehaviour
                 audioManager.Stop("Clock");
                 chromaticAberration.active = false;
                 grain.active = false;
+                colorGrading.active = false;
                 foreach(GameObject o in presentObjects){
                     if(o != null)
                         o.SetActive(true);
@@ -84,6 +87,7 @@ public class TimeShiftController : MonoBehaviour
             
             chromaticAberration.active = true;
             grain.active = true;
+            colorGrading.active = true;
             audioManager.ChangePitch("Theme", -0.5f);
             audioManager.Play("Clock");
             foreach(GameObject o in presentObjects){

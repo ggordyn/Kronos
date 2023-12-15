@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void LoadScene(string sceneName){
-        SceneManager.LoadScene(sceneName);
+        SceneManager.LoadSceneAsync(sceneName);
         switch(sceneName){
             case "Menu":
                 audioManager.StopAll();
