@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     private AudioManager audioManager;
     private HealthUI healthUI;
 
+    public bool tutorial = true;
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
@@ -42,12 +43,13 @@ public class GameManager : MonoBehaviour
     }
 
     public void PlayerHurt(){
-        if(hurtTimer == 0f){
+        if(hurtTimer == 0f && !tutorial){
             if(playerFlashRed == null){
                 playerFlashRed = FindObjectOfType<PlayerFlashRed>();
                 playerFlashRed.OnFlashRed += FlashRed;
             }
             
+           
             lives -= 1;
             hurtTimer += Time.deltaTime;
             
